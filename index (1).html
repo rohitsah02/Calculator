@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colorful Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2dbff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background-color: #645f84e3;
+      border-radius: 10px;
+      box-shadow: 0px 0px 11px 1px rgb(56, 0, 255);
+      padding: 20px;
+    }
+
+    .screen {
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 24px;
+      padding: 10px;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      background-color: #2196F3;
+      color: #fff;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    button:hover{
+      background-color: #1A74BB;
+    }
+
+    .operator {
+      background-color: #FF9800;
+    }
+    .operator:hover{
+      background-color: #C4790A;
+    }
+
+    .calculate {
+      background-color: #4CAF50;
+    }
+    .calculate:hover{
+      background-color: #3F8E43;
+    }
+
+    .delete {
+      background-color: #FF0060A3;
+    }
+    .delete:hover{
+      background-color: #D0004EA3;
+    }
+
+    .clear {
+      background-color: #F44336;
+    }
+    .clear:hover{
+      background-color: #C1382E;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Welcome To Calculator</h2>
+  <div class="calculator">
+    <div class="screen" id="screen">0</div>
+    <div class="buttons">
+      <button value="7">7</button>
+      <button value="8">8</button>
+      <button value="9">9</button>
+      <button class="operator" value="/">/</button>
+      <button value="4">4</button>
+      <button value="5">5</button>
+      <button value="6">6</button>
+      <button class="operator" value="*">x</button>
+      <button value="1">1</button>
+      <button value="2">2</button>
+      <button value="3">3</button>
+      <button class="operator" value="-">-</button>
+      <button value="0">0</button>
+      <button value=".">.</button>
+      <button class="calculate" id="calculate" value = "=">=</button>
+      <button class="operator" value="+">+</button>
+      <button class="delete" id="delete" value = "DEL">DEL</button>
+      <button class="clear" id="clear" value = "C">C</button>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const screen = document.getElementById("screen");
+      let currentInput = "";
+
+      // Update the calculator screen with the current input
+      function updateScreen() {
+        screen.textContent = currentInput || "0";
+      }
+
+      // Add click event listeners to all buttons
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach(button => {
+        button.addEventListener("click", function () {
+          const value = button.value;
+
+          // Handle the delete button
+          if (value === "DEL") {
+            currentInput = currentInput.slice(0, -1);
+          }
+          // Handle the clear button
+          else if (value === "C") {
+            currentInput = "";
+          }
+          // Handle the calculate button
+          else if (value === "=") {
+            try {
+              currentInput = eval(currentInput).toString();
+            } catch (error) {
+              currentInput = "Error";
+            }
+          }
+          // Handle other buttons
+          else {
+            currentInput += value;
+          }
+
+          updateScreen();
+        });
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>
